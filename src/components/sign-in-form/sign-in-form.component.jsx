@@ -22,8 +22,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log(response);
+      const {user} = await signInAuthUserWithEmailAndPassword(email, password);
       // Pulizia campi form
       setFormFields(defaultFormFields);
     } catch(error) {
@@ -41,8 +40,7 @@ const SignInForm = () => {
   }
 
   const logGoogleUser = async () => {
-    const {user} = await signInWithGooglePopup();
-    const userDocRef = await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   }
 
   return (
