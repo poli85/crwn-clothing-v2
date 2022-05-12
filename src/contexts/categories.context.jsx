@@ -20,8 +20,9 @@ export const CategoriesProvider = ({ children }) => {
        const categoryMap = await getCategoriesAndDocuments();
        setCategoriesMap(categoryMap);
     }
+    console.log(categoriesMap);
     getCategoryMap();
-  })
+  }, [])
   const value = {categoriesMap};
 
   return <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>
