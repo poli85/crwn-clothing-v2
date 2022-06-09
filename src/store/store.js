@@ -7,7 +7,8 @@ import { cartReducer } from './cart/cart.reducer';
 import { categoriesReducer } from './categories/categories.reducer';
 import { userReducer } from './user/user.reducer';
 import { combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from '@redux-saga/core';
+import { rootSaga } from './root-saga';
 
 const reducers = combineReducers({
   user: userReducer,
@@ -23,7 +24,9 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-const middleware = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = [sagaMiddleware];
 
 if (process.env.NODE_ENV === 'development') {
   middleware.push(logger);
@@ -34,5 +37,7 @@ export const store = configureStore({
   middleware,
   devTools: process.env.NODE_ENV === 'development'
 });
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { getCategoriesMap } from "../../store/categories/categories.action";
+import { CATEGORIES_ACTION_TYPES } from "../../store/categories/categories.types";
 import CategoriesPreview from "../categories-preview/categories-preview.component";
 import Category from "../category/category.component";
 import "./shop.styles.scss";
@@ -9,7 +9,7 @@ import "./shop.styles.scss";
 const Shop = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    getCategoriesMap(dispatch);
+    dispatch({type: CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START});
   }, [dispatch]);
 
   return (
